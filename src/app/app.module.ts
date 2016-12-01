@@ -6,24 +6,18 @@ import {MaterialModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import notify from '../reducers/NotifyReducer'
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
-import * as thunkMiddleware from 'redux-thunk';
+// import * as thunkMiddleware from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
 import 'hammerjs';
 import {applyMiddleware, Store, createStore, compose, combineReducers} from "redux";
+import {MyComp} from "./sample2";
 
-interface IAppState { /* ... */
-}
-;
-
-function _getMiddleware() {
-    let middleware = [
-        thunkMiddleware
-    ];
-    return applyMiddleware(<any>thunkMiddleware);
-}
+interface IAppState {}
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        MyComp
     ],
     imports: [
         BrowserModule,
@@ -38,7 +32,7 @@ function _getMiddleware() {
 export class AppModule {
     constructor(private ngRedux: NgRedux<IAppState>, private devTools: DevToolsExtension) {
         const reducers = combineReducers({notify});
-        const middlewareEnhancer = applyMiddleware();
+        const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
         const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
         const enhancers:any = compose(middlewareEnhancer, applyDevTools);
         const createStoreWithEnhancers = enhancers(createStore);
