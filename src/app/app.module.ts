@@ -8,7 +8,7 @@ import notify from '../reducers/NotifyReducer'
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
 import * as thunkMiddleware from 'redux-thunk';
 import 'hammerjs';
-import {applyMiddleware} from "redux";
+import {applyMiddleware, Store, createStore, compose, combineReducers} from "redux";
 
 interface IAppState { /* ... */
 }
@@ -37,16 +37,25 @@ function _getMiddleware() {
 })
 export class AppModule {
     constructor(private ngRedux: NgRedux<IAppState>, private devTools: DevToolsExtension) {
-        let enhancers = [];
-        if (true && devTools.isEnabled()) {
-            enhancers = [...enhancers, devTools.enhancer()];
-        }
-
-        this.ngRedux.configureStore(
-            notify,
-            {},
-            [],
-            enhancers);
-
+        const reducers = combineReducers({notify});
+        const middlewareEnhancer = applyMiddleware();
+        const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
+        const enhancers:any = compose(middlewareEnhancer, applyDevTools);
+        const createStoreWithEnhancers = enhancers(createStore);
+        const store = createStoreWithEnhancers(reducers);
+        ngRedux.provideStore(store);
     }
+
+    // constructor(private ngRedux: NgRedux<IAppState>, private devTools: DevToolsExtension) {
+    //     let enhancers = [];
+    //     if (true && devTools.isEnabled()) {
+    //         enhancers = [...enhancers, devTools.enhancer()];
+    //     }
+    //     this.ngRedux.configureStore(
+    //         notify,
+    //         {},
+    //         [],
+    //         enhancers);
+    //
+    // }
 }
