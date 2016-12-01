@@ -4,14 +4,6 @@ import {
     Injectable,
     Component
 } from "@angular/core";
-import {
-    createStore,
-    combineReducers,
-    applyMiddleware,
-    compose
-} from "redux";
-import thunkMiddleware from "redux-thunk";
-import {AppStore} from "angular2-redux-util";
 import * as Immutable from "immutable";
 import {
     List,
@@ -31,24 +23,8 @@ export const moment = moment_["default"];
 @Injectable()
 export class Lib {
 
-    static StoreFactory(reducerList: any) {
-        return () => {
-            alert(2);
-            const reducers = combineReducers(reducerList);
-            //const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware, LoggerMiddleware); // to enable logger
-            const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
-            const isDebug = window['devToolsExtension'];
-            const applyDevTools = () => isDebug ? window['devToolsExtension']() : f => f;
-            const enhancers:any = compose(middlewareEnhancer, applyDevTools());
-            const createStoreWithEnhancers = enhancers(createStore);
-            const reduxAppStore = createStoreWithEnhancers(reducers);
-            return new AppStore(reduxAppStore);
-        };
-    }
-
   static test(){
-
-    // console.log(thunkMiddleware);
+    console.log('lib');
   }
 }
 

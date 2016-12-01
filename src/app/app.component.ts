@@ -17,9 +17,8 @@ export class AppComponent {
     public title: any = 'app works!';
 
     constructor() {
-
-
         setTimeout(() => {
+            Lib.test();
             this.title = _.random(1, 51);
             console.log(StringJS('hello--world').humanize().s);
             console.log(StringJS('hello--world').camelize().s);

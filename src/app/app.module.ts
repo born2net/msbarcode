@@ -4,19 +4,11 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {MaterialModule} from '@angular/material';
 import {AppComponent} from './app.component';
+import {NgReduxModule, NgRedux} from 'ng2-redux';
+import notify from '../reducers/NotifyReducer'
 import 'hammerjs';
-import notify from "../reducers/NotifyReducer";
-import {Lib} from "../Lib";
-import {AppStore} from "angular2-redux-util";
 
-export var providing = [
-    {
-        provide: AppStore,
-        useFactory: Lib.StoreFactory({
-            notify
-        })
-    }];
-
+interface IAppState { /* ... */ };
 
 @NgModule({
     declarations: [
@@ -26,10 +18,14 @@ export var providing = [
         BrowserModule,
         FormsModule,
         HttpModule,
+        NgReduxModule.forRoot(),
         MaterialModule.forRoot()
     ],
-    providers: [providing],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {
+    constructor(ngRedux: NgRedux<IAppState>) {
+        ngRedux.configureStore(notify, {}, [ ]);
+    }
 }
