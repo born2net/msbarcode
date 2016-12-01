@@ -17,8 +17,7 @@ export class MyComp {
         return (dispatch) => {
             setTimeout(() => {
                 dispatch({type: 'BB', payload: i_value})
-            }, 5000)
+            }, 500)
         }
     }
 }
-

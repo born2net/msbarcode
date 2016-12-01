@@ -1,12 +1,6 @@
 // Typings reference file, you can add your own global typings here
 // https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html
 
-// Type definitions for string.js
-// Project: http://stringjs.com
-// Definitions by: Bas Pennings <https://github.com/basp/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-
 declare module 'redux-thunk' {
   import { Middleware } from 'redux';
   const thunkMiddleware : Middleware;
