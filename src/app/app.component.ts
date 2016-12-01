@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import * as _ from 'lodash';
+import {Lib} from "../Lib";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent {
   constructor() {
     setTimeout(()=>{
       this.title = _.random(1, 51);
+      Lib.test();
     },1)
   }
 }
