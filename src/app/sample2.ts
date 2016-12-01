@@ -16,7 +16,6 @@ export class MyComp {
     console.log('>>> offline: ' + this.offlineEnv);
   }
 
-  //aaa
   private act = (i_value): any => {
     return (dispatch) => {
       setTimeout(() => {
