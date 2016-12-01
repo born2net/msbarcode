@@ -22,17 +22,10 @@ export const moment = moment_["default"];
 
 @Injectable()
 export class Lib {
-
-  static StoreFactory(reducerList: Object) {
-    return () => {
-    };
-  }
-
   static test(){
     console.log('lib');
   }
 }
-
 
 /***********************************
  *

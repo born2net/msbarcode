@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, Inject, Injectable, Provider} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {MaterialModule} from '@angular/material';
@@ -13,6 +13,22 @@ import 'hammerjs';
 import notify from '../reducers/NotifyReducer'
 import {MyComp} from "./sample2";
 
+
+var providing = [{
+  provide: AppStore, useFactory: (ngRedux: NgRedux<IAppState>, devTools: DevToolsExtension) => {
+    const reducers = combineReducers({notify});
+    const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
+    const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
+    const enhancers: any = compose(middlewareEnhancer, applyDevTools);
+    const createStoreWithEnhancers = enhancers(createStore);
+    const store = createStoreWithEnhancers(reducers);
+    ngRedux.provideStore(store);
+    return new AppStore(store);
+  }, deps: [NgRedux, DevToolsExtension]
+}, {
+  provide: "OFFLINE_ENV",
+  useValue: false
+}];
 
 interface IAppState {
 }
@@ -29,36 +45,10 @@ interface IAppState {
     NgReduxModule.forRoot(),
     MaterialModule.forRoot()
   ],
-  providers: [],
+  providers: [providing],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private ngRedux: NgRedux<IAppState>, private devTools: DevToolsExtension) {
-    const reducers = combineReducers({notify});
-    const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
-    const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
-    const enhancers: any = compose(middlewareEnhancer, applyDevTools);
-    const createStoreWithEnhancers = enhancers(createStore);
-    const store = createStoreWithEnhancers(reducers);
-    var s:AppStore = new AppStore(store);
-
-
-    ngRedux.provideStore(store);
-    s.dispatch({type: 'CC', payload: '3'})
-    s.dispatch({type: 'CC', payload: '3'})
-
+  constructor() {
   }
-
-  // constructor(private ngRedux: NgRedux<IAppState>, private devTools: DevToolsExtension) {
-  //     let enhancers = [];
-  //     if (true && devTools.isEnabled()) {
-  //         enhancers = [...enhancers, devTools.enhancer()];
-  //     }
-  //     this.ngRedux.configureStore(
-  //         notify,
-  //         {},
-  //         [],
-  //         enhancers);
-  //
-  // }
 }
