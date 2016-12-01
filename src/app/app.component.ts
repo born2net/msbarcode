@@ -7,14 +7,10 @@ import * as _ from 'lodash';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public title = 'app works!';
-
+  public title:any = 'app works!';
   constructor() {
     setTimeout(()=>{
-      console.log(_.random(1, 2000));
-      console.log(12);
-      console.log(3);
+      this.title = _.random(1, 5);
     },1)
-
   }
 }
