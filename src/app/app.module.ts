@@ -6,17 +6,17 @@ import {MaterialModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
 import {AppStore} from "angular2-redux-util";
-// import * as thunkMiddleware from 'redux-thunk';
+import {applyMiddleware, createStore, compose, combineReducers} from "redux";
 import thunkMiddleware from 'redux-thunk';
-import {applyMiddleware, Store, createStore, compose, combineReducers} from "redux";
 import 'hammerjs';
 import notify from '../reducers/NotifyReducer'
+import sample_reducer from '../reducers/SampleReducer'
 import {MyComp} from "./sample2";
-
+import {SampleActions} from "../actions/SampleActions";
 
 var providing = [{
-  provide: AppStore, useFactory: (ngRedux: NgRedux<IAppState>, devTools: DevToolsExtension) => {
-    const reducers = combineReducers({notify});
+  provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
+    const reducers = combineReducers({notify, sample_reducer});
     const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
     const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
     const enhancers: any = compose(middlewareEnhancer, applyDevTools);
@@ -28,10 +28,10 @@ var providing = [{
 }, {
   provide: "OFFLINE_ENV",
   useValue: false
+},{
+  provide: SampleActions,
+  useClass: SampleActions
 }];
-
-interface IAppState {
-}
 
 @NgModule({
   declarations: [

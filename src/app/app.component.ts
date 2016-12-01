@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {Lib} from "../Lib";
 import * as _ from 'lodash';
 import {Map} from 'immutable';
+import {AppStore} from "angular2-redux-util";
+import {SampleActions} from "../actions/SampleActions";
 
 var notify = function notify(state:Map<string, any> = Map<string, any>({}), action:any) {
     //console.log('ACTION: ' + action.type);
@@ -16,9 +18,10 @@ var notify = function notify(state:Map<string, any> = Map<string, any>({}), acti
 export class AppComponent {
     public title: any = 'app works!';
 
-    constructor() {
+    constructor(private appStore:AppStore, private action:SampleActions) {
         setTimeout(() => {
             Lib.test();
+            this.appStore.dispatch(action.serverStatus())
             this.title = _.random(1, 51);
             console.log(StringJS('hello--world').humanize().s);
             console.log(StringJS('hello--world').camelize().s);
