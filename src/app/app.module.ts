@@ -6,11 +6,20 @@ import {MaterialModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import notify from '../reducers/NotifyReducer'
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
+import * as thunkMiddleware from 'redux-thunk';
 import 'hammerjs';
+import {applyMiddleware} from "redux";
 
 interface IAppState { /* ... */
 }
 ;
+
+function _getMiddleware() {
+    let middleware = [
+        thunkMiddleware
+    ];
+    return applyMiddleware(<any>thunkMiddleware);
+}
 
 @NgModule({
     declarations: [
@@ -38,5 +47,6 @@ export class AppModule {
             {},
             [],
             enhancers);
+
     }
 }
