@@ -10,7 +10,7 @@ import {Component} from "@angular/core";
 export class MyComp {
     constructor(private store: NgRedux<any>) {
         this.store.dispatch({type: 'AA', payload: 123})
-        this.store.dispatch(this.act('123'));
+        this.store.dispatch(this.act('112'));
     }
 
     private act = (i_value):any => {

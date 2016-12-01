@@ -1,10 +1,14 @@
 // Typings reference file, you can add your own global typings here
 // https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html
 
+
+
+
 declare module 'redux-thunk' {
-  import { Middleware } from 'redux';
+  import { Middleware, Dispatch} from 'redux';
   const thunkMiddleware : Middleware;
   export default thunkMiddleware;
+
 }
 
 interface StringJS {
