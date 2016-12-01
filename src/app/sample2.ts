@@ -10,9 +10,9 @@ import {AppStore} from "angular2-redux-util";
 })
 export class MyComp {
   constructor(private store: NgRedux<any>, private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) {
-    this.store.dispatch({type: 'AA', payload: 123})
-    this.store.dispatch(this.act('112'));
-    this.appStore.dispatch({type: 'COME ON'})
+    this.store.dispatch({type: '111', payload: 111})
+    this.store.dispatch(this.act('222'));
+    this.appStore.dispatch({type: '333'})
     console.log('>>> offline: ' + this.offlineEnv);
   }
 
@@ -20,7 +20,7 @@ export class MyComp {
   private act = (i_value): any => {
     return (dispatch) => {
       setTimeout(() => {
-        dispatch({type: 'BB', payload: i_value})
+        dispatch({type: '555', payload: i_value})
       }, 500)
     }
   }
