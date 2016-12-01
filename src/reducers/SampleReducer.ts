@@ -1,5 +1,4 @@
-import {List} from 'immutable';
-import {Map} from 'immutable';
+import {List, Map} from 'immutable';
 import * as SampleActions from "../actions/SampleActions";
 import {ServerModel} from "../models/ServerModel";
 
