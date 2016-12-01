@@ -10,7 +10,7 @@ export class AppComponent {
   public title:any = 'app works!';
   constructor() {
     setTimeout(()=>{
-      this.title = _.random(1, 5);
+      this.title = _.random(1, 51);
     },1)
   }
 }
