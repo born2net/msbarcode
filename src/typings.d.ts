@@ -6,6 +6,13 @@
 // Definitions by: Bas Pennings <https://github.com/basp/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+
+declare module 'redux-thunk' {
+  import { Middleware } from 'redux';
+  const thunkMiddleware : Middleware;
+  export default thunkMiddleware;
+}
+
 interface StringJS {
 
   length: number;
@@ -142,9 +149,7 @@ interface StringJS {
 
   toPercent():StringJS;
 }
-
 type StringJSType = {(o: any): StringJS};
-
 declare module "string" {
   var S: {
     (o: any): StringJS;
@@ -155,5 +160,4 @@ declare module "string" {
   }
   export = S;
 }
-
 declare var StringJS: {(o: any): StringJS};
