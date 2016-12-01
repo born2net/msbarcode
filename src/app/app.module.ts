@@ -4,11 +4,13 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {MaterialModule} from '@angular/material';
 import {AppComponent} from './app.component';
-import {NgReduxModule, NgRedux} from 'ng2-redux';
 import notify from '../reducers/NotifyReducer'
+import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
 import 'hammerjs';
 
-interface IAppState { /* ... */ };
+interface IAppState { /* ... */
+}
+;
 
 @NgModule({
     declarations: [
@@ -25,7 +27,16 @@ interface IAppState { /* ... */ };
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor(ngRedux: NgRedux<IAppState>) {
-        ngRedux.configureStore(notify, {}, [ ]);
+    constructor(private ngRedux: NgRedux<IAppState>, private devTools: DevToolsExtension) {
+        let enhancers = [];
+        if (true && devTools.isEnabled()) {
+            enhancers = [...enhancers, devTools.enhancer()];
+        }
+
+        this.ngRedux.configureStore(
+            notify,
+            {},
+            [],
+            enhancers);
     }
 }
