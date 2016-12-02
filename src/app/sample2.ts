@@ -1,4 +1,4 @@
-import {NgRedux} from "ng2-redux";
+import {NgRedux} from "ng2-redux"; //toggle
 import {Component, Inject} from "@angular/core";
 import {AppStore} from "angular2-redux-util";
 
@@ -9,7 +9,8 @@ import {AppStore} from "angular2-redux-util";
     `,
 })
 export class MyComp {
-  constructor(private store: NgRedux<any>, private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) {
+  constructor(private store: NgRedux<any>, private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) { //toggle
+  // constructor(private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) {
     this.store.dispatch({type: '111', payload: 111})
     this.store.dispatch(this.act('333'));
     this.appStore.dispatch({type: '3332'})

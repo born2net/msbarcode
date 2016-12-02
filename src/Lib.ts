@@ -20,11 +20,31 @@ import * as ss from 'string';
 export const moment = moment_["default"];
 
 
+
 @Injectable()
 export class Lib {
   static test(){
     console.log('lib');
   }
+
+  static GetCompSelector(i_constructor) {
+    if (!Lib.DevMode())
+      return;
+    var annotations = Reflect.getMetadata('annotations', i_constructor);
+    var componentMetadata = annotations.find(annotation => {
+      return (annotation instanceof Component);
+    });
+    return componentMetadata.selector;
+  }
+
+  static DevMode(): boolean {
+    if (window.location.href.indexOf('localhost') > -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
 
 /***********************************
