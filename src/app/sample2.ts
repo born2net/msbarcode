@@ -20,7 +20,7 @@ export class MyComp extends Compbaser {
     console.log(Ngmslib.Testing('I am static'));
     console.log(a.replaceReducer(2));
     console.log(StringJS('/a/a/a/a/a').fileTailName(3).s);
-    // console.log(Ngmslib.testAAA('cossolness....'));
+    // console.log(Ngmslib.testAAA('coss22olness....'));
 
     this.cancelOnDestroy(this.appStore.sub((value) => {
       console.log('ABC D' + value);

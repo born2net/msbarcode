@@ -1,5 +1,3 @@
-//<reference path="../../node_modules/ng-mslib/dist/typings.d.ts" />
-
 import {Component} from '@angular/core';
 import * as _ from 'lodash';
 import {Map} from 'immutable';
@@ -28,7 +26,7 @@ export class AppComponent {
     var a = new Ngmslib(1);
     console.log(StringJS('go-home-now').humanize().s);
     Ngmslib.Cap('seanle');
-    console.log(StringJS(12).toCurrency());
+    console.log(StringJS(12).toPercent2());
     console.log(a.replaceReducer(2));
     console.log(Ngmslib.Testing('cossolness....'));
     // console.log(Ngmslib.testAAA('cossolness....'));
