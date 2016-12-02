@@ -7,7 +7,7 @@ import {Ngmslib} from "ng-mslib";
 @Component({
   selector: 'my-comp',
   template: `
-      my-comp
+      I am : {{me}}
       <p>1 {{obs$ | async | json }}</p>
       <p>2 {{_obs$ | async | json }}</p>
     `,

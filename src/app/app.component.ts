@@ -1,7 +1,6 @@
 //<reference path="../../node_modules/ng-mslib/dist/typings.d.ts" />
 
 import {Component} from '@angular/core';
-import {Lib} from "../Lib";
 import * as _ from 'lodash';
 import {Map} from 'immutable';
 import {AppStore} from "angular2-redux-util";
@@ -26,7 +25,6 @@ export class AppComponent {
     Ngmslib.GlobalizeStringJS();
     console.log(StringJS('string-js-is-init').humanize().s);
     console.log(Ngmslib.Base64().encode('foo-bar'));
-    Lib.test();
     var a = new Ngmslib(1);
     console.log(StringJS('go-home-now').humanize().s);
     Ngmslib.Cap('seanle');
