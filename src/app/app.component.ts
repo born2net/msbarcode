@@ -25,6 +25,7 @@ export class AppComponent {
   constructor(private appStore: AppStore, private action: SampleActions) {
     Ngmslib.GlobalizeStringJS();
     console.log(StringJS('string-js-is-init').humanize().s);
+    console.log(Ngmslib.Base64().encode('foo-bar'));
     Lib.test();
     var a = new Ngmslib(1);
     console.log(StringJS('go-home-now').humanize().s);
