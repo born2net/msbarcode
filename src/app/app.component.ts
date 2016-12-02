@@ -25,7 +25,6 @@ export class AppComponent {
     console.log(Ngmslib.Base64().encode('foo-bar'));
     var a = new Ngmslib(1);
     console.log(StringJS('go-home-now').humanize().s);
-    debugger;
     console.log(StringJS('go').isLower());
     Ngmslib.Cap('seanle');
     console.log(StringJS(12).toPercent2());
