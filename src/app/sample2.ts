@@ -13,9 +13,9 @@ import {Ngmslib} from "ng-mslib";
     `,
 })
 export class MyComp extends Compbaser {
+  // constructor(private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) {
   constructor(private store: NgRedux<any>, private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) { //toggle
     super();
-    debugger
     var a = new Ngmslib(1);
     console.log(Ngmslib.Testing('I am static'));
     console.log(a.replaceReducer(2));
@@ -26,7 +26,7 @@ export class MyComp extends Compbaser {
       console.log('ABC D' + value);
     }, 'sample_reducer'))
 
-  // constructor(private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) {
+
     StringJS('a').capitalize()
     this.store.dispatch({type: '111', payload: 111})
     this.store.dispatch(this.act('333'));
