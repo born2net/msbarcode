@@ -17,14 +17,17 @@ export class MyComp extends Compbaser {
     super();
     debugger
     var a = new Ngmslib(1);
+    console.log(Ngmslib.Testing('I am static'));
     console.log(a.replaceReducer(2));
-    console.log(Ngmslib.Testing('cossolness....'));
-    console.log(Ngmslib.testAAA('cossolness....'));
+    console.log(StringJS('/a/a/a/a/a').fileTailName(3).s);
+    // console.log(Ngmslib.testAAA('cossolness....'));
+
     this.cancelOnDestroy(this.appStore.sub((value) => {
       console.log('ABC D' + value);
     }, 'sample_reducer'))
 
   // constructor(private appStore: AppStore, @Inject('OFFLINE_ENV') private offlineEnv) {
+    StringJS('a').capitalize()
     this.store.dispatch({type: '111', payload: 111})
     this.store.dispatch(this.act('333'));
     this.appStore.dispatch({type: '3332'})
