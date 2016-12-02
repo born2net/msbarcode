@@ -27,6 +27,6 @@ export class AppComponent {
             console.log(StringJS('hello--world').camelize().s);
             console.log(StringJS(123).toCurrency());
             console.log(StringJS('&$^72y7edg').cleanChar());
-        }, 1)
+        }, 100)
     }
 }

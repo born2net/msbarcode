@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule, Inject, Injectable, Provider} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {MaterialModule} from '@angular/material';
@@ -16,24 +16,27 @@ import {SampleActions} from "../actions/SampleActions";
 
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux' //toggle
 
-// var providing = [{
-//   provide: AppStore, useFactory: () => {
-//     const reducers = combineReducers({notify, sample_reducer});
-//     const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
-//     const isDebug = window['devToolsExtension']
-//     const applyDevTools = () => isDebug ? window['devToolsExtension']() : f => f;
-//     const enhancers: any = compose(middlewareEnhancer, applyDevTools());
-//     const createStoreWithEnhancers = enhancers(createStore);
-//     const store = createStoreWithEnhancers(reducers);
-//     return new AppStore(store);
-//   }, deps: []
-// }, {
-//   provide: "OFFLINE_ENV",
-//   useValue: false
-// },{
-//   provide: SampleActions,
-//   useClass: SampleActions
-// }];
+/**
+ /// No ng2-redux ///
+ var providing = [{
+  provide: AppStore, useFactory: () => {
+    const reducers = combineReducers({notify, sample_reducer});
+    const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
+    const isDebug = window['devToolsExtension']
+    const applyDevTools = () => isDebug ? window['devToolsExtension']() : f => f;
+    const enhancers: any = compose(middlewareEnhancer, applyDevTools());
+    const store = createStore(reducers, enhancers);
+    return new AppStore(store);
+  }, deps: []
+}, {
+  provide: "OFFLINE_ENV",
+  useValue: false
+}, {
+  provide: SampleActions,
+  useClass: SampleActions
+}];
+ **/
+
 
 var providing = [{
   provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
@@ -41,15 +44,14 @@ var providing = [{
     const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
     const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
     const enhancers: any = compose(middlewareEnhancer, applyDevTools);
-    const createStoreWithEnhancers = enhancers(createStore);
-    const store = createStoreWithEnhancers(reducers);
+    const store = createStore(reducers, enhancers);
     ngRedux.provideStore(store);
     return new AppStore(store);
   }, deps: [NgRedux, DevToolsExtension]
 }, {
   provide: "OFFLINE_ENV",
   useValue: false
-},{
+}, {
   provide: SampleActions,
   useClass: SampleActions
 }];
@@ -73,3 +75,7 @@ export class AppModule {
   constructor() {
   }
 }
+
+
+// const createStoreWithEnhancers = enhancers(createStore);
+// const store = createStoreWithEnhancers(reducers);
