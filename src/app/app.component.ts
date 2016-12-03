@@ -29,8 +29,8 @@ export class AppComponent {
     Ngmslib.Cap('seanle');
     console.log(StringJS(12).toPercent2());
     console.log(a.replaceReducer(2));
-    console.log(Ngmslib.Testing('cossolness....'));
-    // console.log(Ngmslib.testAAA('cossolness....'));
+    console.log(Ngmslib.Testing('ff'));
+    // console.log(Ngmslib.testAAA('cossolnaess....'));
     this.appStore.dispatch(action.serverStatus())
     this.title = _.random(1, 51);
     console.log(StringJS('hello--world').humanize().s);
