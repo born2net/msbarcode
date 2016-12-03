@@ -14,7 +14,8 @@ import {MyComp} from "./sample2";
 import {SampleActions} from "../actions/SampleActions";
 
 
-import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux' //toggle
+import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
+import {MsLibModule} from "ng-mslib/dist/mslib.module"; //toggle
 
 /**
  /// No ng2-redux ///
@@ -39,41 +40,42 @@ import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux' //to
 
 
 var providing = [{
-  provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
-    const reducers = combineReducers({notify, sample_reducer});
-    const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
-    const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
-    const enhancers: any = compose(middlewareEnhancer, applyDevTools);
-    const store = createStore(reducers, enhancers);
-    ngRedux.provideStore(store);
-    return new AppStore(store);
-  }, deps: [NgRedux, DevToolsExtension]
+    provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
+        const reducers = combineReducers({notify, sample_reducer});
+        const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
+        const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
+        const enhancers: any = compose(middlewareEnhancer, applyDevTools);
+        const store = createStore(reducers, enhancers);
+        ngRedux.provideStore(store);
+        return new AppStore(store);
+    }, deps: [NgRedux, DevToolsExtension]
 }, {
-  provide: "OFFLINE_ENV",
-  useValue: false
+    provide: "OFFLINE_ENV",
+    useValue: false
 }, {
-  provide: SampleActions,
-  useClass: SampleActions
+    provide: SampleActions,
+    useClass: SampleActions
 }];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MyComp
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    NgReduxModule.forRoot(), //toggle
-    MaterialModule.forRoot()
-  ],
-  providers: [providing],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MyComp
+    ],
+    imports: [
+        BrowserModule,
+        MsLibModule.forRoot(),
+        FormsModule,
+        HttpModule,
+        NgReduxModule.forRoot(), //toggle
+        MaterialModule.forRoot()
+    ],
+    providers: [providing],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
-  }
+    constructor() {
+    }
 }
 
 

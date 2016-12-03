@@ -10,6 +10,8 @@ import {Ngmslib} from "ng-mslib";
       I am : {{me}}
       <p>1 {{obs$ | async | json }}</p>
       <p>2 {{_obs$ | async | json }}</p>
+      <MyNgComp></MyNgComp>
+      <h5>{{selectedReportNameLong | StringJSPipe:stringJSPipeArgs}}</h5>
     `,
 })
 export class MyComp extends Compbaser {
@@ -26,7 +28,6 @@ export class MyComp extends Compbaser {
       console.log('ABC D' + value);
     }, 'sample_reducer'))
 
-
     StringJS('a').capitalize()
     this.store.dispatch({type: '111', payload: 111})
     this.store.dispatch(this.act('333'));
@@ -42,6 +43,11 @@ export class MyComp extends Compbaser {
   }
 
   @select('notify') obs$
+
+  private selectedReportNameLong:string = 'hello-world-humanize-me';
+  public stringJSPipeArgs = {
+    humanize: []
+  }
 
   private _obs$;
 
