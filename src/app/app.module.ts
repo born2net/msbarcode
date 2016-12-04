@@ -64,9 +64,9 @@ var providing = [{
     ],
     imports: [
         BrowserModule,
-        MsLibModule.forRoot(),
         FormsModule,
         HttpModule,
+        MsLibModule.forRoot(),
         NgReduxModule.forRoot(), //toggle
         MaterialModule.forRoot()
     ],

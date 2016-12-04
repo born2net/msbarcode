@@ -11,7 +11,7 @@ import {Ngmslib} from "ng-mslib";
       <p>1 {{obs$ | async | json }}</p>
       <p>2 {{_obs$ | async | json }}</p>
       <MyNgComp></MyNgComp>
-      <h5>{{selectedReportNameLong | StringJSPipe:stringJSPipeArgs}}</h5>
+      <h5>pipe: {{selectedReportNameLong | StringJSPipe:stringJSPipeArgs}}</h5>
     `,
 })
 export class MyComp extends Compbaser {
@@ -37,7 +37,6 @@ export class MyComp extends Compbaser {
 
   @select(state => state.notify)
   set setCounter(obs$) {
-    alert(1);
     this._obs$ = obs$;
     this._obs$.map(e => e);
   }
