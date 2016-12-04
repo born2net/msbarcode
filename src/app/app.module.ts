@@ -39,7 +39,7 @@ import {MsLibModule} from "ng-mslib/dist/mslib.module"; //toggle
  **/
 
 
-var providing = [{
+export var providing = [{
     provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
         const reducers = combineReducers({notify, sample_reducer});
         const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
