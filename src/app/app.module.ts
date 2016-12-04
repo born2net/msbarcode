@@ -10,10 +10,8 @@ import thunkMiddleware from 'redux-thunk';
 import 'hammerjs';
 import notify from '../reducers/NotifyReducer'
 import sample_reducer from '../reducers/SampleReducer'
-import {MyComp} from "./sample2";
+// import {MyComp} from "./sample2";
 import {SampleActions} from "../actions/SampleActions";
-
-
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
 import {MsLibModule} from "ng-mslib/dist/mslib.module"; //toggle
 
@@ -60,14 +58,14 @@ export var providing = [{
 @NgModule({
     declarations: [
         AppComponent,
-        MyComp
+        // MyComp
     ],
     imports: [
         BrowserModule,
         FormsModule,
         HttpModule,
-        MsLibModule.forRoot(),
-        NgReduxModule.forRoot(), //toggle
+        // MsLibModule.forRoot(),
+        // NgReduxModule.forRoot(), //toggle
         MaterialModule.forRoot()
     ],
     providers: [providing],
