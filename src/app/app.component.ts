@@ -19,7 +19,8 @@ import {SampleActions} from "../actions/SampleActions";
 export class AppComponent {
   public title: any = 'app works!';
 
-  // constructor(private appStore: AppStore, private action: SampleActions) {
+  constructor(private appStore: AppStore, private action: SampleActions) {
+    this.appStore.dispatch(action.serverStatus());
     // Ngmslib.GlobalizeStringJS();
     // console.log(StringJS('string-js-is-init').humanize().s);
     // console.log(Ngmslib.Base64().encode('foo-bar'));
@@ -31,11 +32,10 @@ export class AppComponent {
     // console.log(a.replaceReducer(2));
     // console.log(Ngmslib.Testing('ff'));
     // // console.log(Ngmslib.testAAA('cossolnaess....'));
-    // this.appStore.dispatch(action.serverStatus())
     // this.title = _.random(1, 51);
     // console.log(StringJS('hello--world').humanize().s);
     // console.log(StringJS('hello--world').camelize().s);
     // console.log(StringJS(123).toCurrency());
     // console.log(StringJS('&$^72y7edg').cleanChar());
-  // }
+  }
 }
