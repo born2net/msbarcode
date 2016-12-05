@@ -2,12 +2,6 @@ import {Component} from "@angular/core";
 import * as _ from "lodash";
 import {Map} from "immutable";
 import {Ngmslib} from "ng-mslib";
-// import {Ngmslib} from "ng-mslib";
-
-var notify = function notify(state: Map<string, any> = Map<string, any>({}), action: any) {
-    //console.log('ACTION: ' + action.type);
-    return {data: Map({currentAction: action.type})};
-}
 
 @Component({
     selector: 'app-root',
