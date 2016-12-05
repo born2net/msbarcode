@@ -9,7 +9,6 @@
     "lint": "tslint \"src/**/*.ts\"",
     "debug ng-mslib": "cp ./node_modules/ng-mslib/src/myng-component.ts ./node_modules/ng-mslib/dist/"
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "2.2.1",
     "@angular/compiler": "2.2.1",
