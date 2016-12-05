@@ -57,7 +57,6 @@ import {MsLibModule} from "ng-mslib/dist/mslib.module"; //toggle
 // }];
 
 export function fac (ngRedux: NgRedux<any>, devTools: DevToolsExtension) {
-    alert('loaded new');
     const reducers = combineReducers({notify, sample_reducer});
     const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
     const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
