@@ -23,7 +23,7 @@
     "@types/lodash": "^4.14.41",
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.32",
-    "angular-cli": "^1.0.0-beta.22",
+    "angular-cli": "^1.0.0-beta.21",
     "angular2-redux-util": "^0.8.86",
     "angular2-uuid": "^1.1.0",
     "core-js": "^2.4.1",
@@ -41,7 +41,7 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
-    "angular-cli": "1.0.0-beta.22",
+    "angular-cli": "1.0.0-beta.21",
     "@angular/compiler-cli": "2.2.3",
     "@angularclass/hmr": "^1.2.2",
     "@types/hammerjs": "^2.0.33",

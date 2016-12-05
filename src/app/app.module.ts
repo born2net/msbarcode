@@ -37,8 +37,27 @@ import {MsLibModule} from "ng-mslib/dist/mslib.module"; //toggle
  **/
 
 
+// export var providing = [{
+//     provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
+//         alert('loaded...')
+//         const reducers = combineReducers({notify, sample_reducer});
+//         const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
+//         const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
+//         const enhancers: any = compose(middlewareEnhancer, applyDevTools);
+//         const store = createStore(reducers, enhancers);
+//         ngRedux.provideStore(store);
+//         return new AppStore(store);
+//     }, deps: [NgRedux, DevToolsExtension]
+// }, {
+//     provide: "OFFLINE_ENV",
+//     useValue: false
+// }, {
+//     provide: SampleActions,
+//     useClass: SampleActions
+// }];
+
 export function fac (ngRedux: NgRedux<any>, devTools: DevToolsExtension) {
-    alert('running');
+    alert('loaded new');
     const reducers = combineReducers({notify, sample_reducer});
     const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
     const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
@@ -48,7 +67,7 @@ export function fac (ngRedux: NgRedux<any>, devTools: DevToolsExtension) {
     return new AppStore(store);
 }
 
-export var providing = [{
+export var providing_new = [{
     provide: AppStore, useFactory: fac, deps: [NgRedux, DevToolsExtension]
 }, {
     provide: "OFFLINE_ENV",
@@ -69,14 +88,15 @@ export var providing = [{
         FormsModule,
         HttpModule,
         // MsLibModule.forRoot(),
-        // NgReduxModule.forRoot(), //toggle
+        NgReduxModule.forRoot(), //toggle
         MaterialModule.forRoot()
     ],
-    providers: [providing],
+    providers: [providing_new],
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor() {
+    constructor(private appStore:AppStore) {
+        console.log(this.appStore);
     }
 }
 
