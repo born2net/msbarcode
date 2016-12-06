@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {MaterialModule} from '@angular/material';
 import {AppComponent} from './app.component';
@@ -15,7 +15,8 @@ import {SampleActions} from "../actions/SampleActions";
 
 
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
-import {MsLibModule} from "ng-mslib/dist/mslib.module"; //toggle
+import {MsLibModule} from "ng-mslib/dist/mslib.module";
+import {ToastModule} from "ng2-toastr"; //toggle
 
 /**
  /// No ng2-redux ///
@@ -65,7 +66,9 @@ var providing = [{
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
+        ToastModule,
         MsLibModule.forRoot(),
         NgReduxModule.forRoot(), //toggle
         MaterialModule.forRoot()

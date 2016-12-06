@@ -1,15 +1,11 @@
-import {Component} from '@angular/core';
-import * as _ from 'lodash';
-import {Map} from 'immutable';
+import {Component, ViewContainerRef} from '@angular/core';
 import {AppStore} from "angular2-redux-util";
 import {SampleActions} from "../actions/SampleActions";
 import {Ngmslib} from "ng-mslib";
-// import {Ngmslib} from "ng-mslib";
+import {ToastsManager} from "ng2-toastr";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
-var notify = function notify(state: Map<string, any> = Map<string, any>({}), action: any) {
-  //console.log('ACTION: ' + action.type);
-  return {data: Map({currentAction: action.type})};
-}
+
 
 @Component({
   selector: 'app-root',
@@ -17,25 +13,36 @@ var notify = function notify(state: Map<string, any> = Map<string, any>({}), act
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public title: any = 'app works!';
 
-  constructor(private appStore: AppStore, private action: SampleActions) {
+  public title: any = 'app works!';
+  public data: any = {default: 'storage'};
+  public selectedType:string = 'storage';
+  public contGroup: FormGroup;
+
+  constructor(private fb: FormBuilder, private toastr: ToastsManager, private vRef: ViewContainerRef, private appStore: AppStore, private action: SampleActions) {
+    this.toastr.setRootViewContainerRef(vRef);
     Ngmslib.GlobalizeStringJS();
     console.log(StringJS('string-js-is-init').humanize().s);
-    console.log(Ngmslib.Base64().encode('foo-bar'));
-    var a = new Ngmslib(1);
-    console.log(StringJS('go-home-now').humanize().s);
-    console.log(StringJS('go').isLower());
-    Ngmslib.Cap('seanle');
-    console.log(StringJS(12).toPercent2());
-    console.log(a.replaceReducer(2));
-    console.log(Ngmslib.Testing('ff'));
-    // console.log(Ngmslib.testAAA('cossolnaess....'));
-    this.appStore.dispatch(action.serverStatus())
-    this.title = _.random(1, 51);
-    console.log(StringJS('hello--world').humanize().s);
-    console.log(StringJS('hello--world').camelize().s);
-    console.log(StringJS(123).toCurrency());
-    console.log(StringJS('&$^72y7edg').cleanChar());
+
+    this.contGroup = fb.group({
+      'selectedType': [''],
+      'password': [''],
+      'serials': [''],
+      'orderNumber': ['']
+    });
+
+  }
+
+  private onSelect(event){
+    this.selectedType = this.data.default;
+  }
+
+  private runReport(){
+    this.toastr.success('aaa','aaaa');
+
+  }
+  private openDialog(){
+    this.toastr.success(JSON.stringify(this.contGroup.value));
   }
 }
+
