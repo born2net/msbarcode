@@ -5,8 +5,6 @@ import {Ngmslib} from "ng-mslib";
 import {ToastsManager} from "ng2-toastr";
 import {FormBuilder, FormGroup} from "@angular/forms";
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -41,8 +39,18 @@ export class AppComponent {
     this.toastr.success('aaa','aaaa');
 
   }
-  private openDialog(){
-    this.toastr.success(JSON.stringify(this.contGroup.value));
+  public openDialog(){
+    if (this.contGroup.value.selectedType=='customer' && this.contGroup.value.orderNumber.length < 5)
+      return this.toastr.error('order number is too short');
+    if (this.contGroup.value.serials.length < 8)
+      return this.toastr.error('no valid serials');
+    if (this.contGroup.value.password.length < 4)
+      return this.toastr.error('no password entered');
+
+    this.toastr.info('saving to server')
+    setTimeout(()=>{
+      this.toastr.success('saved to server')
+    },2000)
   }
 }
 
