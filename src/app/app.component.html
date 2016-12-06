@@ -1,53 +1,64 @@
 <form novalidate autocomplete="off" [formGroup]="contGroup">
-
-    <md-toolbar color="primary">
-        inventory tracker
-        <span class="app-toolbar-filler"></span>
-    </md-toolbar>
-    <div class="app-content">
-        <md-card>
-            <md-tab-group>
-                <md-tab label="Manager">
-                    <md-card>
-                        <md-radio-group [formControl]="contGroup.controls['selectedType']" (change)="onSelect($event)" [(ngModel)]="data.default">
-                            <md-radio-button value="storage" name="symbol">receive @ storage</md-radio-button>
-                            <md-radio-button value="shipper" name="symbol">receive @ shipper</md-radio-button>
-                            <md-radio-button value="customer" name="symbol">to customer</md-radio-button>
-                        </md-radio-group>
-                        <md-input [formControl]="contGroup.controls['password']" style="margin-left: 300px" #nickname placeholder="Password" maxlength="50">
-                            <md-hint align="end">
-                                {{nickname.characterCount}} / 50
-                            </md-hint>
-                        </md-input>
-                    </md-card>
-                    <md-card *ngIf="selectedType=='customer'" class="app-input-section">
-                        <md-input [formControl]="contGroup.controls['orderNumber']" #nickname placeholder="Order# " maxlength="50">
-                        </md-input>
-                    </md-card>
-                    <md-card>
-                        <button md-raised-button style="background-color: red; width: 200px" (click)="openDialog()">Save</button>
-                        <p>Serials</p>
-                        <textarea [formControl]="contGroup.controls['serials']" style="height: 400px; width: 400px"></textarea>
-                    </md-card>
-                </md-tab>
-                <md-tab label="Reports">
-                    <br/>
-                    <button md-raised-button style="width: 200px" (click)="runReport()">load</button>
-                    <table border="0" width="50%" cellpadding="4" cellspacing="3">
-                        <tr>
-                            <th colspan="2"><br>
-                                <h3>serials</h3>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Date</th>
-                            <th>serial</th>
-                            <th>Location</th>
-                            <th>order id</th>
-                        </tr>
-                    </table>
-                </md-tab>
-            </md-tab-group>
-        </md-card>
+    <div *ngIf!="loggedIn">
+        <md-input type="text" [formControl]="contGroup.controls['user']"  #nickname1 placeholder="user" value="david" maxlength="50">
+            <md-hint align="end">
+                {{nickname1.characterCount}} / 50
+            </md-hint>
+        </md-input>
+        <md-input type="password" (change)="onPasswordEntered($event)" [formControl]="contGroup.controls['password']"  #nickname2 placeholder="password" maxlength="50">
+            <md-hint align="end">
+                {{nickname2.characterCount}} / 50
+            </md-hint>
+        </md-input>
     </div>
+    <div *ngIf="loggedIn">
+        <md-toolbar color="primary">
+            inventory tracker
+            <span class="app-toolbar-filler"></span>
+        </md-toolbar>
+        <div class="app-content">
+            <md-card>
+                <button md-raised-button style="float: right" (click)="logout()">Logout</button>
+                <md-tab-group>
+                    <md-tab label="Manager">
+                        <md-card>
+                            <div *ngIf="department!='shipping'">
+                                <md-radio-group [formControl]="contGroup.controls['selectedType']" (change)="onSelect($event)" [(ngModel)]="data.default">
+                                    <md-radio-button value="storage" name="symbol">receive at storage</md-radio-button>
+                                    <md-radio-button value="shipper" name="symbol">giving to shipper</md-radio-button>
+                                </md-radio-group>
+                            </div>
+                        </md-card>
+                        <md-card *ngIf="department=='shipping'" class="app-input-section">
+                            <md-input [formControl]="contGroup.controls['orderNumber']" #nickname placeholder="Order# " maxlength="50">
+                            </md-input>
+                        </md-card>
+                        <md-card>
+                            <button md-raised-button style="background-color: red; width: 200px" (click)="openDialog()">Save</button>
+                            <p>Serials</p>
+                            <textarea [formControl]="contGroup.controls['serials']" style="height: 400px; width: 400px"></textarea>
+                        </md-card>
+                    </md-tab>
+                    <md-tab *ngIf="department!='shipping'" label="Reports">
+                        <br/>
+                        <button md-raised-button style="width: 200px" (click)="runReport()">load</button>
+                        <table border="0" width="50%" cellpadding="4" cellspacing="3">
+                            <tr>
+                                <th colspan="2"><br>
+                                    <h3>serials</h3>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <th>serial</th>
+                                <th>Location</th>
+                                <th>order id</th>
+                            </tr>
+                        </table>
+                    </md-tab>
+                </md-tab-group>
+            </md-card>
+        </div>
+    </div>
+
 </form>

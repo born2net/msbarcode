@@ -12,6 +12,7 @@ import notify from '../reducers/NotifyReducer'
 import sample_reducer from '../reducers/SampleReducer'
 import {MyComp} from "./sample2";
 import {SampleActions} from "../actions/SampleActions";
+import {LocalStorage} from "../services/LocalStorage";
 
 
 import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
@@ -53,10 +54,10 @@ var providing = [{
 }, {
     provide: "OFFLINE_ENV",
     useValue: false
-}, {
-    provide: SampleActions,
-    useClass: SampleActions
-}];
+},  {
+    provide: LocalStorage,
+    useClass: LocalStorage
+},];
 
 @NgModule({
     declarations: [
