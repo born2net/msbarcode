@@ -23,7 +23,7 @@
                     <md-tab label="Manager">
                         <md-card>
                             <div *ngIf="department!='shipping'">
-                                <md-radio-group [formControl]="contGroup.controls['selectedType']" (change)="onSelect($event)" [(ngModel)]="data.default">
+                                <md-radio-group [formControl]="contGroup.controls['location']" (change)="onSelect($event)" [(ngModel)]="data.default">
                                     <md-radio-button value="storage" name="symbol">receive at storage</md-radio-button>
                                     <md-radio-button value="shipper" name="symbol">giving to shipper</md-radio-button>
                                 </md-radio-group>
@@ -34,7 +34,7 @@
                             </md-input>
                         </md-card>
                         <md-card>
-                            <button md-raised-button style="background-color: red; width: 200px" (click)="openDialog()">Save</button>
+                            <button md-raised-button style="background-color: red; width: 200px" (click)="onSave()">Save</button>
                             <p>Serials</p>
                             <textarea [formControl]="contGroup.controls['serials']" style="height: 400px; width: 400px"></textarea>
                         </md-card>

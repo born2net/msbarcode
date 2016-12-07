@@ -20,7 +20,7 @@ export class AppComponent {
     public department: string;
     public data: any = {default: 'storage'};
     public loggedIn: boolean = false;
-    public selectedType: string = 'storage';
+    public location: string = 'storage';
     public contGroup: FormGroup;
     private user: string;
     private pass: string;
@@ -31,7 +31,7 @@ export class AppComponent {
         console.log(StringJS('string-js-is-init').humanize().s);
 
         this.contGroup = fb.group({
-            'selectedType': [''],
+            'location': [''],
             'user': [''],
             'password': [''],
             'serials': [''],
@@ -44,7 +44,7 @@ export class AppComponent {
     }
 
     private onSelect(event) {
-        this.selectedType = this.data.default;
+        this.location = this.data.default;
     }
 
     private runReport() {
@@ -52,37 +52,37 @@ export class AppComponent {
 
     }
 
-    private logout(){
+    private logout() {
         this.toastr.success('logged out');
         this.localStorage.removeItem('user');
         this.localStorage.removeItem('pass');
+        this.user = null;
+        this.pass = null;
 
     }
+
     private onPasswordEntered(i_user?, i_pass?) {
-        var user, pass;
         if (i_user && i_pass) {
-            user = i_user;
-            pass = i_pass;
+            this.user = i_user;
+            this.pass = i_pass;
         } else {
-            user = this.contGroup.value.user;
-            pass = this.contGroup.value.password;
+            this.user = this.contGroup.value.user;
+            this.pass = this.contGroup.value.password;
         }
-
-
-        this.http.get(`https://secure.digitalsignage.com:442/inventoryManagerAuth/${user}/${pass}`).map(result => result.json())
+        this.http.get(`https://secure.digitalsignage.com:442/inventoryManagerAuth/${this.user}/${this.pass}`).map(result => result.json())
             .catch((err, o: Observable<any>) => {
                 this.toastr.error('problem loading account', err);
                 return <any>{status: 0, msg: 'problem with server'};
             }).subscribe((data: any) => {
-            if (data.status == 0){
+            if (data.status == 0) {
                 this.localStorage.removeItem('user');
                 this.localStorage.removeItem('pass');
                 return this.toastr.error(data.msg, '', {dismiss: 'click'});
             }
             this.department = data.msg.department;
             this.loggedIn = true;
-            this.localStorage.setItem('user',user);
-            this.localStorage.setItem('pass',pass);
+            this.localStorage.setItem('user', this.user);
+            this.localStorage.setItem('pass', this.pass);
         }, (err) => {
             // return this.toastr.error(err,'3');
         })
@@ -90,15 +90,19 @@ export class AppComponent {
         console.log(this.contGroup.value.password);
     }
 
-    public openDialog() {
-        if (this.contGroup.value.selectedType == 'customer' && this.contGroup.value.orderNumber.length < 5)
-            return this.toastr.error('order number is too short');
+    public onSave() {
+        var url;
         if (this.contGroup.value.serials.length < 8)
             return this.toastr.error('no valid serials');
-        if (this.contGroup.value.password.length < 4)
-            return this.toastr.error('no password entered');
+        if (this.department=='shipping' && this.contGroup.value.orderNumber.length<5)
+            return this.toastr.error('no valid order number provided');
         var serials = this.contGroup.value.serials.replace(/\n/ig, ':NEW:');
-        this.http.get(`https://secure.digitalsignage.com:442/inventoryManager/${this.contGroup.value.password}/${this.contGroup.value.selectedType}/${serials}`).map(result => result.json())
+        if (this.department=='shipping'){
+            url = `https://secure.digitalsignage.com:442/inventoryManagerShipper/${this.user}/${this.pass}/${serials}`
+        } else if (this.department=='sales'){
+            url = `https://secure.digitalsignage.com:442/inventoryManager/${this.user}/${this.pass}/${this.contGroup.value.location}/${serials}`
+        }
+        this.http.get(url).map(result => result.json())
             .catch((err, o: Observable<any>) => {
                 this.toastr.error('problem savings data to server ', err);
                 return <any>{status: 0, msg: 'problem with server'};
