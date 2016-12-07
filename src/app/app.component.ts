@@ -23,6 +23,7 @@ export class AppComponent {
     public contGroup: FormGroup;
     private user: string;
     private pass: string;
+    private report: Array<any>
 
     constructor(private http: Http, private fb: FormBuilder, private toastr: ToastsManager, private vRef: ViewContainerRef, private appStore: AppStore, private localStorage: LocalStorage) {
         this.toastr.setRootViewContainerRef(vRef);
@@ -47,7 +48,15 @@ export class AppComponent {
     }
 
     private runReport() {
-        this.toastr.success('aaa', 'aaaa');
+        this.http.get(`https://secure.digitalsignage.com:442/inventoryManagerReport/${this.user}/${this.pass}`).map(result => result.json())
+            .catch((err, o: Observable<any>) => {
+                this.toastr.error('problem loading report', err);
+                return <any>{status: 0, msg: 'problem loading report'};
+            }).subscribe((data: any) => {
+            this.report = data.msg;
+        }, (err) => {
+            // return this.toastr.error(err,'3');
+        })
 
     }
 
@@ -93,12 +102,12 @@ export class AppComponent {
         var url;
         if (this.contGroup.value.serials.length < 8)
             return this.toastr.error('no valid serials');
-        if (this.department=='shipping' && this.contGroup.value.orderNumber.length<5)
+        if (this.department == 'shipping' && this.contGroup.value.orderNumber.length < 5)
             return this.toastr.error('no valid order number provided');
         var serials = this.contGroup.value.serials.replace(/\n/ig, ':NEW:');
-        if (this.department=='shipping'){
+        if (this.department == 'shipping') {
             url = `https://secure.digitalsignage.com:442/inventoryManagerShipper/${this.user}/${this.pass}/${this.contGroup.value.orderNumber}/${serials}`
-        } else if (this.department=='sales'){
+        } else if (this.department == 'sales') {
             url = `https://secure.digitalsignage.com:442/inventoryManager/${this.user}/${this.pass}/${this.contGroup.value.location}/${serials}`
         }
         this.http.get(url).map(result => result.json())

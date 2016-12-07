@@ -30,7 +30,7 @@
                             </div>
                         </md-card>
                         <md-card *ngIf="department=='shipping'" class="app-input-section">
-                            <md-input [formControl]="contGroup.controls['orderNumber']" #nickname placeholder="Order# " maxlength="50">
+                            <md-input type="number" [formControl]="contGroup.controls['orderNumber']" #nickname placeholder="Order# " maxlength="50">
                             </md-input>
                         </md-card>
                         <md-card>
@@ -42,17 +42,18 @@
                     <md-tab *ngIf="department!='shipping'" label="Reports">
                         <br/>
                         <button md-raised-button style="width: 200px" (click)="runReport()">load</button>
-                        <table border="0" width="50%" cellpadding="4" cellspacing="3">
+                        <table border="0" width="100%" cellpadding="4" cellspacing="3">
                             <tr>
-                                <th colspan="2"><br>
-                                    <h3>serials</h3>
-                                </th>
+                                <th align="left">barcode <hr/></th>
+                                <th align="left">current location<hr/></th>
+                                <th align="left">date storage<hr/></th>
+                                <th align="left">date shipper<hr/></th>
                             </tr>
-                            <tr>
-                                <th>Date</th>
-                                <th>serial</th>
-                                <th>Location</th>
-                                <th>order id</th>
+                            <tr *ngFor="let item of report">
+                                <td>{{item.barcode}}</td>
+                                <td>{{item.current_location}}</td>
+                                <td>{{item.date_storage  | date:'dd-MM-yy HH:mm'}}</td>
+                                <td>{{item.date_shipper  | date:'dd-MM-yy HH:mm'}}</td>
                             </tr>
                         </table>
                     </md-tab>
