@@ -1,6 +1,5 @@
 import {Component, ViewContainerRef} from '@angular/core';
 import {AppStore} from "angular2-redux-util";
-import {SampleActions} from "../actions/SampleActions";
 import {Ngmslib} from "ng-mslib";
 import {ToastsManager, ToastOptions} from "ng2-toastr";
 import {FormBuilder, FormGroup} from "@angular/forms";
