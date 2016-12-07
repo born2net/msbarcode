@@ -97,7 +97,7 @@ export class AppComponent {
             return this.toastr.error('no valid order number provided');
         var serials = this.contGroup.value.serials.replace(/\n/ig, ':NEW:');
         if (this.department=='shipping'){
-            url = `https://secure.digitalsignage.com:442/inventoryManagerShipper/${this.user}/${this.pass}/${serials}`
+            url = `https://secure.digitalsignage.com:442/inventoryManagerShipper/${this.user}/${this.pass}/${this.contGroup.value.orderNumber}/${serials}`
         } else if (this.department=='sales'){
             url = `https://secure.digitalsignage.com:442/inventoryManager/${this.user}/${this.pass}/${this.contGroup.value.location}/${serials}`
         }
