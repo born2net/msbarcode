@@ -6,7 +6,10 @@
   "scripts": {
     "start": "ng serve",
     "lint": "tslint \"src/**/*.ts\"",
-    "debug ng-mslib": "cp ./node_modules/ng-mslib/src/myng-component.ts ./node_modules/ng-mslib/dist/"
+    "debug ng-mslib": "cp ./node_modules/ng-mslib/src/myng-component.ts ./node_modules/ng-mslib/dist/",
+    "build": "ng build --target=production --base-href ./",
+    "rsync": "rsync --progress  --chmod=ug=rwx --chmod=o=rx -av --stats -e ssh /cygdrive/c/msweb/msbarcode/dist/ Sean@digitalsignage.com:/var/www/sites/dynasite/htdocs/_msportal/_js/_node/_invmanager",
+    "release": "npm run build && npm run rsync"
   },
   "private": true,
   "dependencies": {
