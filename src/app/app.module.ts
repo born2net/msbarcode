@@ -11,15 +11,14 @@ import 'hammerjs';
 import notify from '../reducers/NotifyReducer'
 import sample_reducer from '../reducers/SampleReducer'
 import {MyComp} from "./sample2";
-import {SampleActions} from "../actions/SampleActions";
+// import {SampleActions} from "../actions/SampleActions";
 import {LocalStorage} from "../services/LocalStorage";
 
 
-import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
+// import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
 import {MsLibModule} from "ng-mslib/dist/mslib.module";
-import {ToastModule} from "ng2-toastr"; //toggle
+import {ToastModule} from "ng2-toastr";
 
-/**
  /// No ng2-redux ///
  var providing = [{
   provide: AppStore, useFactory: () => {
@@ -35,29 +34,28 @@ import {ToastModule} from "ng2-toastr"; //toggle
   provide: "OFFLINE_ENV",
   useValue: false
 }, {
-  provide: SampleActions,
-  useClass: SampleActions
+  provide: LocalStorage,
+  useClass: LocalStorage
 }];
- **/
 
 
-var providing = [{
-    provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
-        const reducers = combineReducers({notify, sample_reducer});
-        const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
-        const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : f => f;
-        const enhancers: any = compose(middlewareEnhancer, applyDevTools);
-        const store = createStore(reducers, enhancers);
-        ngRedux.provideStore(store);
-        return new AppStore(store);
-    }, deps: [NgRedux, DevToolsExtension]
-}, {
-    provide: "OFFLINE_ENV",
-    useValue: false
-},  {
-    provide: LocalStorage,
-    useClass: LocalStorage
-},];
+// var providing = [{
+//     provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
+//         const reducers = combineReducers({notify, sample_reducer});
+//         const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
+//         const applyDevTools = () => devTools.isEnabled() ? devTools.enhancer : (f:any) => f;
+//         const enhancers: any = compose(middlewareEnhancer, applyDevTools);
+//         const store = createStore(reducers, enhancers);
+//         ngRedux.provideStore(store);
+//         return new AppStore(store);
+//     }, deps: [NgRedux, DevToolsExtension]
+// }, {
+//     provide: "OFFLINE_ENV",
+//     useValue: false
+// },  {
+//     provide: LocalStorage,
+//     useClass: LocalStorage
+// },];
 
 @NgModule({
     declarations: [
@@ -71,7 +69,7 @@ var providing = [{
         HttpModule,
         ToastModule,
         MsLibModule.forRoot(),
-        NgReduxModule.forRoot(), //toggle
+        // NgReduxModule.forRoot(), //toggle
         MaterialModule.forRoot()
     ],
     providers: [providing],
