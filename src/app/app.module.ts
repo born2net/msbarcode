@@ -19,26 +19,26 @@ import {LocalStorage} from "../services/LocalStorage";
 import {MsLibModule} from "ng-mslib/dist/mslib.module";
 import {ToastModule} from "ng2-toastr";
 
- /// No ng2-redux ///
- var providing = [{
-  provide: AppStore, useFactory: () => {
-    const reducers = combineReducers({notify, sample_reducer});
-    const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
-    const isDebug = window['devToolsExtension']
-    const applyDevTools = () => isDebug ? window['devToolsExtension']() : f => f;
-    const enhancers: any = compose(middlewareEnhancer, applyDevTools());
-    const store = createStore(reducers, enhancers);
-    return new AppStore(store);
-  }, deps: []
+/// without ng2-redux ///
+var providing = [{
+    provide: AppStore, useFactory: () => {
+        const reducers = combineReducers({notify, sample_reducer});
+        const middlewareEnhancer = applyMiddleware(<any>thunkMiddleware);
+        const isDebug = window['devToolsExtension']
+        const applyDevTools = () => isDebug ? window['devToolsExtension']() : f => f;
+        const enhancers: any = compose(middlewareEnhancer, applyDevTools());
+        const store = createStore(reducers, enhancers);
+        return new AppStore(store);
+    }, deps: []
 }, {
-  provide: "OFFLINE_ENV",
-  useValue: false
+    provide: "OFFLINE_ENV",
+    useValue: false
 }, {
-  provide: LocalStorage,
-  useClass: LocalStorage
+    provide: LocalStorage,
+    useClass: LocalStorage
 }];
 
-
+/// with ng2-redux ///
 // var providing = [{
 //     provide: AppStore, useFactory: (ngRedux: NgRedux<any>, devTools: DevToolsExtension) => {
 //         const reducers = combineReducers({notify, sample_reducer});
