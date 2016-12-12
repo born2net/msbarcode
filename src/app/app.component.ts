@@ -48,7 +48,7 @@ export class AppComponent {
     }
 
     private runReport() {
-        this.http.get(`https://secure.digitalsignage.com/inventoryManagerReport/${this.user}/${this.pass}`).map(result => result.json())
+        this.http.get(`https://secure.digitalsignage.com:443/inventoryManagerReport/${this.user}/${this.pass}`).map(result => result.json())
             .catch((err, o: Observable<any>) => {
                 this.toastr.error('problem loading report', err);
                 return <any>{status: 0, msg: 'problem loading report'};
@@ -77,7 +77,7 @@ export class AppComponent {
             this.user = this.contGroup.value.user;
             this.pass = this.contGroup.value.password;
         }
-        this.http.get(`https://secure.digitalsignage.com/inventoryManagerAuth/${this.user}/${this.pass}`).map(result => result.json())
+        this.http.get(`https://secure.digitalsignage.com:443/inventoryManagerAuth/${this.user}/${this.pass}`).map(result => result.json())
             .catch((err, o: Observable<any>) => {
                 this.toastr.error('problem loading account', err);
                 return <any>{status: 0, msg: 'problem with server'};
@@ -106,9 +106,9 @@ export class AppComponent {
             return this.toastr.error('no valid order number provided');
         var serials = this.contGroup.value.serials.replace(/\n/ig, ':NEW:');
         if (this.department == 'shipping') {
-            url = `https://secure.digitalsignage.com/inventoryManagerShipper/${this.user}/${this.pass}/${this.contGroup.value.orderNumber}/${serials}`
+            url = `https://secure.digitalsignage.com:443/inventoryManagerShipper/${this.user}/${this.pass}/${this.contGroup.value.orderNumber}/${serials}`
         } else if (this.department == 'sales') {
-            url = `https://secure.digitalsignage.com/inventoryManager/${this.user}/${this.pass}/${this.contGroup.value.location}/${serials}`
+            url = `https://secure.digitalsignage.com:443/inventoryManager/${this.user}/${this.pass}/${this.contGroup.value.location}/${serials}`
         }
         this.http.get(url).map(result => result.json())
             .catch((err, o: Observable<any>) => {

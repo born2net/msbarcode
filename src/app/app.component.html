@@ -26,6 +26,7 @@
                                 <md-radio-group [formControl]="contGroup.controls['location']" (change)="onSelect($event)" [(ngModel)]="data.default">
                                     <md-radio-button value="storage" name="symbol">receive at storage</md-radio-button>
                                     <md-radio-button value="shipper" name="symbol">giving to shipper</md-radio-button>
+                                    <md-radio-button value="removal" name="symbol">remove barcodes</md-radio-button>
                                 </md-radio-group>
                             </div>
                         </md-card>
