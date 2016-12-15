@@ -18,6 +18,7 @@ import {LocalStorage} from "../services/LocalStorage";
 // import {NgReduxModule, DevToolsExtension, NgRedux, select} from 'ng2-redux'
 import {MsLibModule} from "ng-mslib/dist/mslib.module";
 import {ToastModule} from "ng2-toastr";
+import {HttpAuth, UserService, NotifyService} from "../services/HttpAuth";
 
 /// without ng2-redux ///
 var providing = [{
@@ -36,6 +37,15 @@ var providing = [{
 }, {
     provide: LocalStorage,
     useClass: LocalStorage
+}, {
+    provide: HttpAuth,
+    useClass: HttpAuth
+},{
+    provide: UserService,
+    useClass: UserService
+},{
+    provide: NotifyService,
+    useClass: NotifyService
 }];
 
 /// with ng2-redux ///
@@ -76,7 +86,10 @@ var providing = [{
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor() {
+    constructor(private http:HttpAuth) {
+        // this.http.get('https://swapi.co/api/films/1/').map(res=>{
+        //     console.log(res);
+        // }).share().subscribe()
     }
 }
 

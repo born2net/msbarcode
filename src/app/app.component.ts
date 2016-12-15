@@ -7,6 +7,7 @@ import {Http} from "@angular/http";
 import 'rxjs/add/operator/catch';
 import {Observable} from "rxjs";
 import {LocalStorage} from "../services/LocalStorage";
+import {HttpAuth} from "../services/HttpAuth";
 
 
 @Component({
@@ -25,7 +26,7 @@ export class AppComponent {
     private pass: string;
     private report: Array<any>
 
-    constructor(private http: Http, private fb: FormBuilder, private toastr: ToastsManager, private vRef: ViewContainerRef, private appStore: AppStore, private localStorage: LocalStorage) {
+    constructor(private http: HttpAuth, private fb: FormBuilder, private toastr: ToastsManager, private vRef: ViewContainerRef, private appStore: AppStore, private localStorage: LocalStorage) {
         this.toastr.setRootViewContainerRef(vRef);
         Ngmslib.GlobalizeStringJS();
         console.log(StringJS('string-js-is-init').humanize().s);
