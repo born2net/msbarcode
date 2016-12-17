@@ -87,6 +87,7 @@ var providing = [{
     bootstrap: [AppComponent]
 })
 export class AppModule {
+    // example always include (err) handler
     // constructor() {
     //
     //     const source$ = Observable.interval(1000)
