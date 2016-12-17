@@ -29,7 +29,7 @@ testem.log
 # js/map
 src/**/*.js
 src/**/*.map
-
+!index.js
 
 #System Files
 .DS_Store

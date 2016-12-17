@@ -19,6 +19,7 @@ import {LocalStorage} from "../services/LocalStorage";
 import {MsLibModule} from "ng-mslib/dist/mslib.module";
 import {ToastModule} from "ng2-toastr";
 import {HttpAuth, UserService, NotifyService} from "../services/HttpAuth";
+import {Observable} from "rxjs";
 
 /// without ng2-redux ///
 var providing = [{
@@ -40,10 +41,10 @@ var providing = [{
 }, {
     provide: HttpAuth,
     useClass: HttpAuth
-},{
+}, {
     provide: UserService,
     useClass: UserService
-},{
+}, {
     provide: NotifyService,
     useClass: NotifyService
 }];
@@ -86,11 +87,27 @@ var providing = [{
     bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor(private http:HttpAuth) {
-        // this.http.get('https://swapi.co/api/films/1/').map(res=>{
-        //     console.log(res);
-        // }).share().subscribe()
-    }
+    // constructor() {
+    //
+    //     const source$ = Observable.interval(1000)
+    //         .share()
+    //     const mapped$ = source$.map(x => {
+    //         if (x === 1) {
+    //             throw new Error('oops');
+    //         }
+    //         return x;
+    //     });
+    //     source$.map(x=>x).take(3).subscribe(x => console.log('A', x));
+    //     mapped$.take(3).subscribe(
+    //         x => console.log('B', x),
+    //         (err) => {
+    //             console.log('Error handled: ' + err.message)
+    //         }
+    //     );
+    //     // source$.subscribe(x => console.log('C', x));
+    //
+    // }
+
 }
 
 
